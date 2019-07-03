@@ -23,6 +23,7 @@
 		AF8E0BA522BBEDE8003D1651 /* MuralListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */; };
 		AF8E0BA722BC03B3003D1651 /* MuralListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA622BC03B3003D1651 /* MuralListTableViewController.swift */; };
 		AF9228DD22BC2B3600DEFD93 /* MuralDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9228DC22BC2B3600DEFD93 /* MuralDetailViewController.swift */; };
+		AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralListTableViewCell.swift; sourceTree = "<group>"; };
 		AF8E0BA622BC03B3003D1651 /* MuralListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralListTableViewController.swift; sourceTree = "<group>"; };
 		AF9228DC22BC2B3600DEFD93 /* MuralDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralDetailViewController.swift; sourceTree = "<group>"; };
+		AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				AF8E0BA622BC03B3003D1651 /* MuralListTableViewController.swift */,
 				AF1CD34522C6868000087D4C /* TourListViewController.swift */,
 				AF1CD34922C6A6DD00087D4C /* FavoritesTableViewController.swift */,
+				AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				AF8E0B9F22BAE18B003D1651 /* MainScreenViewController.swift in Sources */,
 				AF1CD34422C6716A00087D4C /* TourController.swift in Sources */,
 				AF8E0BA722BC03B3003D1651 /* MuralListTableViewController.swift in Sources */,
+				AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */,
 				AF8E0BA122BBD529003D1651 /* NetworkClient.swift in Sources */,
 				AF1CD34822C6879C00087D4C /* TourTableViewCell.swift in Sources */,
 				AF1CD34C22C6A71D00087D4C /* FavoritesController.swift in Sources */,

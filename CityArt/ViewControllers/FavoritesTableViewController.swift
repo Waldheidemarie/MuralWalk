@@ -15,7 +15,9 @@ class FavoritesTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.reloadData()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

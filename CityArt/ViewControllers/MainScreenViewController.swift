@@ -107,6 +107,7 @@ extension MainScreenViewController: CLLocationManagerDelegate, MKMapViewDelegate
             let button = UIButton(type: .contactAdd)
             view.rightCalloutAccessoryView = button
             button.addTarget(self, action: #selector(showAnnotationDetail), for: .touchUpInside)
+            view.selectedGlyphImage = UIImage(named: "paint")
             view.markerTintColor = UIColor(hue: 226/360, saturation: 0.62, brightness: 0.77, alpha: 1.0)
          
         }

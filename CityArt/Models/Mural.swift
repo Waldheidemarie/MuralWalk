@@ -18,8 +18,6 @@ class Mural: NSObject, Codable, MKAnnotation {
         return CLLocationCoordinate2D(latitude: lat.degreeValue, longitude: long.degreeValue)
     }
 
-    
-    
     let artist: String?
     let latitude: String?
     let longitude: String?
@@ -51,14 +49,23 @@ class Mural: NSObject, Codable, MKAnnotation {
 }
 
 
-struct Tour: Equatable{
+class Tour: Equatable{
 
     var title : String
     var description: String
     let identifier: String
-    var murals: [Mural]?
+    var length: Float = 0.0
+    var murals: [Mural]
     var comments: [Comment]
     
+    init(title: String, description: String, identifier: String, length: Float, murals: [Mural] = [], comments: [Comment] = []){
+        self.title = title
+        self.description = description
+        self.identifier = identifier
+        self.length = length
+        self.murals = murals
+        self.comments = comments
+    }
     static func == (lhs: Tour, rhs: Tour) -> Bool {
         return lhs.identifier == rhs.identifier
     }

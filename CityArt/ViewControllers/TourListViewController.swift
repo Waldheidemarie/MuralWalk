@@ -18,7 +18,9 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
         tourTableView.dataSource = self
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        tourTableView.reloadData()
+    }
     //MARK: - TableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TourController.shared.tours.count
@@ -27,6 +29,9 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "tourCell", for: indexPath) as? TourTableViewCell else {return UITableViewCell()}
         cell.tourNameLabel.text = TourController.shared.tours[indexPath.row].title
+        cell.distanceLabel.text = "Distance: 4.2mi"
+        let murals = TourController.shared.tours[indexPath.row].murals 
+        cell.stopsLabel.text = "Stops: \(murals.count)"
         return cell
     }
     
@@ -51,14 +56,18 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
         present(newTourController, animated: true, completion: nil)
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toTourDetailView"{
+            let destinationVC = segue.destination as? TourDetailViewController
+            guard let chosenCell = self.tourTableView.indexPathForSelectedRow else {return}
+            let chosenTour = TourController.shared.tours[chosenCell.row]
+            destinationVC?.tour = chosenTour
+        }
     }
-    */
+    
 
 }

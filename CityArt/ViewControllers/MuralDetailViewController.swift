@@ -16,6 +16,8 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var yearInstalledLabel: UILabel!
     @IBOutlet weak var streetLabel: UILabel!
     @IBOutlet weak var artworkDescriptionLabel: UILabel!
+
+    
     
     var mural: Mural?{
         didSet{
@@ -44,11 +46,14 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tourCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addTourCell", for: indexPath)
         cell.textLabel?.text = TourController.shared.tours[indexPath.row].title
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tour = TourController.shared.tours[indexPath.row]
+    }
     
     @IBAction func addToFavoritesPressed(_ sender: UIButton) {
         guard let mural = mural else {return}
@@ -61,30 +66,29 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func addToToursButtonPressed(_ sender: UIButton) {
         //Present an AlertViewController that will display the tour list in a table view
         let tourAlert = UIAlertController(title: "Select a Tour", message: nil, preferredStyle: .alert)
-        let tourTableView = UITableView()
-        tourTableView.delegate = self
-        tourTableView.dataSource = self
-        tourTableView.backgroundColor = .lightGray
-        tourTableView.sizeThatFits(CGSize(width: 200, height: 200))
-        tourTableView.center = tourAlert.view.center
-        tourAlert.view.addSubview(tourTableView)
+        let tourTableView = UITableViewController()
+        tourTableView.preferredContentSize = CGSize(width: 272, height: 176) // 4 default cell heights.
+        tourAlert.setValue(tourTableView, forKey: "contentViewController")
+        tourTableView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "addTourCell")
+
         
         
         let addAction = UIAlertAction(title: "Add", style: .default) { (add) in
             guard let mural = self.mural,
-                let tour = self.tour else {return}
-            TourController.shared.addToTour(tour: tour, mural: mural)
+                var tour = self.tour else {return}
+            TourController.shared.addToTour(tour: &tour, mural: mural)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
             tourAlert.dismiss(animated: true, completion: nil)
         }
+        
         tourAlert.addAction(cancelAction)
         tourAlert.addAction(addAction)
         
         present(tourAlert, animated: true) {
+            tourTableView.tableView.dataSource = self
+            tourTableView.tableView.delegate = self
             
-            guard let chosen = tourTableView.indexPathForSelectedRow else {return}
-            self.tour = TourController.shared.tours[chosen.row]
         }
     }
     
