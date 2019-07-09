@@ -10,8 +10,14 @@ import UIKit
 
 class MuralListTableViewController: UITableViewController {
     
+    @IBOutlet weak var muralSearchBar: UISearchBar!
+    
+    var streetArt: [StreetArt] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        muralSearchBar.delegate = self
+        self.streetArt = NetworkClient.shared.streetArt
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
     }
@@ -25,22 +31,16 @@ class MuralListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return  NetworkClient.shared.murals.count
+        return  streetArt.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "muralCell", for: indexPath) as? MuralListTableViewCell else { return UITableViewCell()}
-        let mural = NetworkClient.shared.murals[indexPath.row]
-        cell.mural = mural
+        let mural = streetArt[indexPath.row]
+        cell.streetArt = mural
         return cell
     }
-    
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-    
     
     /*
     // Override to support conditional editing of the table view.
@@ -85,8 +85,30 @@ class MuralListTableViewController: UITableViewController {
         if segue.identifier == "toDetailVC" {
             let destinationVC = segue.destination as? MuralDetailViewController
             guard let chosenCell = self.tableView.indexPathForSelectedRow else {return}
-            let chosenMural = NetworkClient.shared.murals[chosenCell.row]
-            destinationVC?.mural = chosenMural
+            let chosenMural = streetArt[chosenCell.row]
+            destinationVC?.streetArt = chosenMural
+        }
+    }
+}//End of Class
+
+extension MuralListTableViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else {return}
+        NetworkClient.shared.queryMuralsByText(searchText: searchText) { (streetArt) in
+            self.streetArt = streetArt
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        NetworkClient.shared.fetchMurals { (streetArt) in
+            NetworkClient.shared.streetArt = streetArt
+            self.streetArt = streetArt
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }

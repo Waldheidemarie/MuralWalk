@@ -12,6 +12,9 @@
 		AF1CD34822C6879C00087D4C /* TourTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1CD34722C6879C00087D4C /* TourTableViewCell.swift */; };
 		AF1CD34A22C6A6DD00087D4C /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1CD34922C6A6DD00087D4C /* FavoritesTableViewController.swift */; };
 		AF1CD34C22C6A71D00087D4C /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1CD34B22C6A71D00087D4C /* FavoritesController.swift */; };
+		AF653C1B22CD433700CBA6DC /* MuralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF653C1A22CD433700CBA6DC /* MuralController.swift */; };
+		AF653C1F22D0059B00CBA6DC /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF653C1E22D0059B00CBA6DC /* CloudKit.framework */; };
+		AF653C2122D17E4000CBA6DC /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF653C2022D17E4000CBA6DC /* CloudKitManager.swift */; };
 		AF8E0B7D22BADDAD003D1651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0B7C22BADDAD003D1651 /* AppDelegate.swift */; };
 		AF8E0B8222BADDAD003D1651 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF8E0B8022BADDAD003D1651 /* Main.storyboard */; };
 		AF8E0B8422BADDB3003D1651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8E0B8322BADDB3003D1651 /* Assets.xcassets */; };
@@ -23,6 +26,9 @@
 		AF8E0BA522BBEDE8003D1651 /* MuralListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */; };
 		AF8E0BA722BC03B3003D1651 /* MuralListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA622BC03B3003D1651 /* MuralListTableViewController.swift */; };
 		AF9228DD22BC2B3600DEFD93 /* MuralDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9228DC22BC2B3600DEFD93 /* MuralDetailViewController.swift */; };
+		AF97562722D3CF560062EA6A /* MuralCommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF97562622D3CF560062EA6A /* MuralCommentsTableViewController.swift */; };
+		AF97562922D3DE1D0062EA6A /* MuralCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF97562822D3DE1D0062EA6A /* MuralCommentTableViewCell.swift */; };
+		AF97562C22D419900062EA6A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF97562B22D419900062EA6A /* DateExtension.swift */; };
 		AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +48,10 @@
 		AF1CD34722C6879C00087D4C /* TourTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourTableViewCell.swift; sourceTree = "<group>"; };
 		AF1CD34922C6A6DD00087D4C /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		AF1CD34B22C6A71D00087D4C /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		AF653C1A22CD433700CBA6DC /* MuralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralController.swift; sourceTree = "<group>"; };
+		AF653C1C22D0055300CBA6DC /* CityArt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityArt.entitlements; sourceTree = "<group>"; };
+		AF653C1E22D0059B00CBA6DC /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		AF653C2022D17E4000CBA6DC /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		AF8E0B7922BADDAD003D1651 /* CityArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8E0B7C22BADDAD003D1651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF8E0B8122BADDAD003D1651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -57,6 +67,9 @@
 		AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralListTableViewCell.swift; sourceTree = "<group>"; };
 		AF8E0BA622BC03B3003D1651 /* MuralListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralListTableViewController.swift; sourceTree = "<group>"; };
 		AF9228DC22BC2B3600DEFD93 /* MuralDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralDetailViewController.swift; sourceTree = "<group>"; };
+		AF97562622D3CF560062EA6A /* MuralCommentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralCommentsTableViewController.swift; sourceTree = "<group>"; };
+		AF97562822D3DE1D0062EA6A /* MuralCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralCommentTableViewCell.swift; sourceTree = "<group>"; };
+		AF97562B22D419900062EA6A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF653C1F22D0059B00CBA6DC /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +101,7 @@
 				AF1CD34522C6868000087D4C /* TourListViewController.swift */,
 				AF1CD34922C6A6DD00087D4C /* FavoritesTableViewController.swift */,
 				AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */,
+				AF97562622D3CF560062EA6A /* MuralCommentsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -96,6 +111,8 @@
 			children = (
 				AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */,
 				AF1CD34722C6879C00087D4C /* TourTableViewCell.swift */,
+				AF1CD34B22C6A71D00087D4C /* FavoritesController.swift */,
+				AF97562822D3DE1D0062EA6A /* MuralCommentTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,7 +122,8 @@
 			children = (
 				AF8E0BA022BBD529003D1651 /* NetworkClient.swift */,
 				AF1CD34322C6716A00087D4C /* TourController.swift */,
-				AF1CD34B22C6A71D00087D4C /* FavoritesController.swift */,
+				AF653C1A22CD433700CBA6DC /* MuralController.swift */,
+				AF653C2022D17E4000CBA6DC /* CloudKitManager.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -118,12 +136,21 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		AF653C1D22D0059B00CBA6DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF653C1E22D0059B00CBA6DC /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF8E0B7022BADDAD003D1651 = {
 			isa = PBXGroup;
 			children = (
 				AF8E0B7B22BADDAD003D1651 /* CityArt */,
 				AF8E0B9022BADDB3003D1651 /* CityArtTests */,
 				AF8E0B7A22BADDAD003D1651 /* Products */,
+				AF653C1D22D0059B00CBA6DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,6 +166,8 @@
 		AF8E0B7B22BADDAD003D1651 /* CityArt */ = {
 			isa = PBXGroup;
 			children = (
+				AF97562A22D4196C0062EA6A /* HelpersAndExtensions */,
+				AF653C1C22D0055300CBA6DC /* CityArt.entitlements */,
 				AF0B9F2222BEA5B9005C59B2 /* Models */,
 				AF0B9F2122BEA5AA005C59B2 /* ModelControllers */,
 				AF0B9F2022BEA59E005C59B2 /* Views */,
@@ -159,6 +188,14 @@
 				AF8E0B9322BADDB3003D1651 /* Info.plist */,
 			);
 			path = CityArtTests;
+			sourceTree = "<group>";
+		};
+		AF97562A22D4196C0062EA6A /* HelpersAndExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				AF97562B22D419900062EA6A /* DateExtension.swift */,
+			);
+			path = HelpersAndExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,17 +301,22 @@
 			files = (
 				AF8E0B7D22BADDAD003D1651 /* AppDelegate.swift in Sources */,
 				AF1CD34622C6868000087D4C /* TourListViewController.swift in Sources */,
+				AF97562922D3DE1D0062EA6A /* MuralCommentTableViewCell.swift in Sources */,
 				AF9228DD22BC2B3600DEFD93 /* MuralDetailViewController.swift in Sources */,
 				AF8E0BA522BBEDE8003D1651 /* MuralListTableViewCell.swift in Sources */,
 				AF8E0B9D22BAE172003D1651 /* Mural.swift in Sources */,
+				AF653C1B22CD433700CBA6DC /* MuralController.swift in Sources */,
 				AF1CD34A22C6A6DD00087D4C /* FavoritesTableViewController.swift in Sources */,
 				AF8E0B9F22BAE18B003D1651 /* MainScreenViewController.swift in Sources */,
 				AF1CD34422C6716A00087D4C /* TourController.swift in Sources */,
 				AF8E0BA722BC03B3003D1651 /* MuralListTableViewController.swift in Sources */,
 				AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */,
 				AF8E0BA122BBD529003D1651 /* NetworkClient.swift in Sources */,
+				AF97562C22D419900062EA6A /* DateExtension.swift in Sources */,
 				AF1CD34822C6879C00087D4C /* TourTableViewCell.swift in Sources */,
 				AF1CD34C22C6A71D00087D4C /* FavoritesController.swift in Sources */,
+				AF653C2122D17E4000CBA6DC /* CloudKitManager.swift in Sources */,
+				AF97562722D3CF560062EA6A /* MuralCommentsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CityArt/CityArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2779EQ3QB6;
 				INFOPLIST_FILE = CityArt/Info.plist;
@@ -454,6 +497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CityArt/CityArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2779EQ3QB6;
 				INFOPLIST_FILE = CityArt/Info.plist;

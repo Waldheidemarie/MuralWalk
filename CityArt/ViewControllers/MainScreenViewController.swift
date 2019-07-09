@@ -22,28 +22,47 @@ class MainScreenViewController: UIViewController {
     
     
     @IBOutlet weak var muralMapView: MKMapView!
+    @IBOutlet weak var muralSearchBar: UISearchBar!
     
+    
+    var streetArt: [StreetArt] = []
+    
+    //MARK: - ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         muralMapView.delegate = self
-        NetworkClient.shared.fetchMurals { (murals) in
-            NetworkClient.shared.murals = murals
+        muralSearchBar.delegate = self
+        
+        NetworkClient.shared.fetchMurals { (streetArt) in
+            NetworkClient.shared.streetArt = streetArt
+            self.streetArt = streetArt
+            self.getLocations()
+        }
+        self.muralMapView.setCenter(chicago, animated: false)
+        self.muralMapView.setRegion(chicagoArea, animated: true)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        NetworkClient.shared.fetchMurals { (streetArt) in
+            NetworkClient.shared.streetArt = streetArt
+            self.streetArt = streetArt
             self.getLocations()
         }
         self.muralMapView.setCenter(chicago, animated: false)
         self.muralMapView.setRegion(chicagoArea, animated: true)
     }
     
+    //MARK: - MapKit Functions
     func getLocations(){
-       let muralArray = NetworkClient.shared.murals
-        let locationArray = muralArray.map { (mural) -> CLLocation in
-            guard let lat = mural.latitude?.degreeValue,
-                let long = mural.longitude?.degreeValue else {return CLLocation()}
+       
+       let muralArray = self.streetArt
+        let locationArray = muralArray.map { (streetArt) -> CLLocation in
+            guard let lat = streetArt.latitude?.degreeValue,
+                let long = streetArt.longitude?.degreeValue else {return CLLocation()}
              self.locations.append(CLLocation(latitude: lat, longitude: long))
             return CLLocation(latitude: lat, longitude: long)
         }
         self.locations = locationArray
-        muralMapView.addAnnotations(NetworkClient.shared.murals)
+        muralMapView.addAnnotations(streetArt)
         
         
     }
@@ -59,37 +78,32 @@ class MainScreenViewController: UIViewController {
         }
     }
     
+    // MARK: - Navigation
+
     @objc func showAnnotationDetail(){
         performSegue(withIdentifier: "toDetailVC"){
             
         }
     }
     
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailVC" {
             guard let destinationVC = segue.destination as? MuralDetailViewController else {return}
-            destinationVC.mural = selectedAnnotation as? Mural
+            destinationVC.streetArt = selectedAnnotation as? StreetArt
             
         }
     }
-
-
 }// End of ViewController Class
 
 //MARK: - Extensions
 extension MainScreenViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
-
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation
-        
     }
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? Mural else {return nil}
+        guard let annotation = annotation as? StreetArt else {return nil}
         self.selectedAnnotation = annotation
         let identifier = "marker"
         var view: MKMarkerAnnotationView
@@ -100,7 +114,6 @@ extension MainScreenViewController: CLLocationManagerDelegate, MKMapViewDelegate
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
@@ -109,7 +122,6 @@ extension MainScreenViewController: CLLocationManagerDelegate, MKMapViewDelegate
             button.addTarget(self, action: #selector(showAnnotationDetail), for: .touchUpInside)
             view.selectedGlyphImage = UIImage(named: "paint")
             view.markerTintColor = UIColor(hue: 226/360, saturation: 0.62, brightness: 0.77, alpha: 1.0)
-         
         }
         return view
     }
@@ -117,15 +129,44 @@ extension MainScreenViewController: CLLocationManagerDelegate, MKMapViewDelegate
         print("Got Latest Loc")
         guard let latestLocation = locations.first else {return}
         currentCoordinate = latestLocation.coordinate
-        
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("Status Changed")
     }
     
-}
+}// End of Class
+
+//MARK: - Extensions
 extension String {
     var degreeValue: CLLocationDegrees {
         return (self as NSString).doubleValue
     }
 }
+
+//FIXME: - Extension for Search Bar Delegate has been disable
+
+ extension MainScreenViewController: UISearchBarDelegate {
+ 
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        muralMapView.removeAnnotations(self.streetArt)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else {return}
+        NetworkClient.shared.queryMuralsByText(searchText: searchText) { (murals) in
+            self.streetArt = murals
+            self.getLocations()
+        }
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        NetworkClient.shared.fetchMurals { (murals) in
+            NetworkClient.shared.streetArt = murals
+            self.streetArt = murals
+            self.getLocations()
+        }
+        self.muralMapView.setCenter(chicago, animated: false)
+        self.muralMapView.setRegion(chicagoArea, animated: true)
+    }
+}
+

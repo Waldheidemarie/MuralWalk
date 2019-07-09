@@ -17,8 +17,9 @@ class TourTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
+    
     func constrainStackView(){
 //        labelStackView.translatesAutoresizingMaskIntoConstraints = false
 //        labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
@@ -31,6 +32,7 @@ class TourTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
     }
 
 }

@@ -16,11 +16,11 @@ class TourController {
     
     //CRUD Functions
     func newTour(title: String){
-        let newTour = Tour(title: title, description: "", identifier: UUID().uuidString, length: 0.0, murals: [], comments: [])
+        let newTour = Tour(title: title, description: "", identifier: UUID().uuidString, length: 0.0, streetArtwork: [], comments: [])
         self.tours.append(newTour)
     }
-        func addToTour(tour: inout Tour, mural: Mural){
-            tour.murals.append(mural)
+        func addToTour(tour: inout Tour, mural: StreetArt){
+            tour.streetArtwork.append(mural)
     }
     
     func deleteTour(tour: Tour){

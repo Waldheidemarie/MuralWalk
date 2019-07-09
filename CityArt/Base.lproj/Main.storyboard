@@ -18,17 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5ST-f1-WEd" userLabel="HeaderStackView">
-                                <rect key="frame" x="16" y="88" width="382" height="111"/>
+                                <rect key="frame" x="4" y="88" width="406" height="111"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CuA-c3-K2r">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="406" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="740" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fhM-BZ-KRs" userLabel="ButtonStackView">
-                                        <rect key="frame" x="0.0" y="72" width="382" height="39"/>
+                                        <rect key="frame" x="0.0" y="72" width="406" height="39"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ph-nu-Kbx">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="39"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199" height="39"/>
                                                 <color key="backgroundColor" red="0.75749143835616439" green="0.4366715350256421" blue="0.014852773303180628" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,7 +40,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1O1-0N-UgY">
-                                                <rect key="frame" x="195" y="0.0" width="187" height="39"/>
+                                                <rect key="frame" x="207" y="0.0" width="199" height="39"/>
                                                 <color key="backgroundColor" red="0.29019607843137252" green="0.40000000000000002" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,12 +70,12 @@
                         </subviews>
                         <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="5ST-f1-WEd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="12B-S1-h1P"/>
+                            <constraint firstItem="5ST-f1-WEd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="12B-S1-h1P"/>
                             <constraint firstItem="5ST-f1-WEd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8p2-uu-6oO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pei-p3-rDu" secondAttribute="trailing" id="GqZ-aS-O4f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pei-p3-rDu" secondAttribute="bottom" id="ROf-Vs-EBF"/>
                             <constraint firstItem="pei-p3-rDu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="T6D-R4-596"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5ST-f1-WEd" secondAttribute="trailing" constant="16" id="XkZ-oL-nzd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5ST-f1-WEd" secondAttribute="trailing" constant="4" id="XkZ-oL-nzd"/>
                             <constraint firstItem="pei-p3-rDu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gM3-s0-nFq"/>
                             <constraint firstItem="pei-p3-rDu" firstAttribute="top" secondItem="5ST-f1-WEd" secondAttribute="bottom" constant="8" id="qLd-4I-yBR"/>
                         </constraints>
@@ -84,6 +84,7 @@
                     <navigationItem key="navigationItem" id="6JK-68-BdV"/>
                     <connections>
                         <outlet property="muralMapView" destination="pei-p3-rDu" id="MEV-Tc-ZjZ"/>
+                        <outlet property="muralSearchBar" destination="CuA-c3-K2r" id="D3h-si-j5s"/>
                         <segue destination="lFT-Eq-ES1" kind="show" identifier="toDetailVC" id="2Ve-Vu-k6C"/>
                     </connections>
                 </viewController>
@@ -99,9 +100,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="YmE-Mk-mlY">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="muralCell" rowHeight="158" id="2ba-yR-iKo" customClass="MuralListTableViewCell" customModule="CityArt" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="158"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="158"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2ba-yR-iKo" id="q6A-S8-K2u" customClass="MuralListTableViewCell" customModule="CityArt" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="158"/>
@@ -158,6 +164,9 @@
                             <outlet property="delegate" destination="ZUx-FC-1xi" id="9nA-gg-SSr"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="muralSearchBar" destination="YmE-Mk-mlY" id="G4l-Y7-DhY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3I6-rh-QzO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -207,10 +216,11 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7Vb-uF-kwT" userLabel="FavTourStackView">
                                                 <rect key="frame" x="0.0" y="73" width="373" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iz7-77-ppR">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iz7-77-ppR">
                                                         <rect key="frame" x="0.0" y="0.0" width="113.5" height="30"/>
                                                         <color key="backgroundColor" red="0.84150256850000005" green="0.17490053389999999" blue="0.082500251819999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Add to Favorites">
+                                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" image="heart.fill" catalog="system">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
@@ -233,6 +243,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
+                                                            <action selector="commentsButtonPressed:" destination="lFT-Eq-ES1" eventType="touchUpInside" id="PDv-Ld-FXp"/>
                                                             <segue destination="UeN-fJ-6oT" kind="show" identifier="toCommentsView" id="2i9-s9-W2f"/>
                                                         </connections>
                                                     </button>
@@ -310,12 +321,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HLf-93-G44" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1994" y="1231"/>
+            <point key="canvasLocation" x="2061" y="1669"/>
         </scene>
         <!--Comments-->
         <scene sceneID="kaS-TL-jtF">
             <objects>
-                <tableViewController id="UeN-fJ-6oT" sceneMemberID="viewController">
+                <tableViewController id="UeN-fJ-6oT" customClass="MuralCommentsTableViewController" customModule="CityArt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hfb-9G-wK4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -344,7 +355,7 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="PQw-C9-Vyk">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQw-C9-Vyk">
                                             <rect key="frame" x="0.0" y="28.5" width="398" height="92.5"/>
                                             <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
@@ -365,6 +376,9 @@
                                                     <integer key="value" value="10"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="postCommentButtonPressed:" destination="UeN-fJ-6oT" eventType="touchUpInside" id="6gC-5e-aWk"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -382,7 +396,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="115" id="zN7-Ks-wJG">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="115" id="zN7-Ks-wJG" customClass="MuralCommentTableViewCell" customModule="CityArt" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="198" width="414" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zN7-Ks-wJG" id="I3d-TL-IJp">
@@ -409,7 +423,7 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUG-46-WRw">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUG-46-WRw">
                                                     <rect key="frame" x="0.0" y="27.5" width="358" height="49.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -425,6 +439,11 @@
                                         <constraint firstItem="AgO-Tw-HtD" firstAttribute="trailing" secondItem="I3d-TL-IJp" secondAttribute="trailingMargin" constant="-8" id="phk-ON-ie1"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contentLabel" destination="SUG-46-WRw" id="qDh-fj-ebq"/>
+                                    <outlet property="timestampLabel" destination="A05-Vd-JpV" id="O18-X3-3ik"/>
+                                    <outlet property="userLabel" destination="KQ7-Dh-EYg" id="OSX-Li-xBk"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -433,10 +452,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Comments" id="cRI-en-jJB"/>
+                    <connections>
+                        <outlet property="artistLabel" destination="TgY-4k-HoZ" id="JbH-er-mjw"/>
+                        <outlet property="descriptionLabel" destination="PQw-C9-Vyk" id="Ye3-Hx-uKV"/>
+                        <outlet property="titleLabel" destination="Hde-4o-Dgo" id="zDz-im-ztG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8LX-id-5YT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3082.608695652174" y="1230.8035714285713"/>
+            <point key="canvasLocation" x="3048" y="1669"/>
         </scene>
         <!--Tour List View Controller-->
         <scene sceneID="sTb-fQ-peu">
@@ -500,17 +524,20 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="96" translatesAutoresizingMaskIntoConstraints="NO" id="e5i-H3-0Yi">
-                                                            <rect key="frame" x="0.0" y="63.5" width="217" height="20.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="e5i-H3-0Yi">
+                                                            <rect key="frame" x="0.0" y="63.5" width="342" height="20.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iit-8D-L0s">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="20.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="Distance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iit-8D-L0s">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="214" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stops:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k79-BA-ffU">
-                                                                    <rect key="frame" x="168" y="0.0" width="49" height="20.5"/>
+                                                                    <rect key="frame" x="222" y="0.0" width="120" height="20.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="120" id="WOa-kI-nv8"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -518,6 +545,9 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="e5i-H3-0Yi" firstAttribute="width" secondItem="2AR-SJ-mfw" secondAttribute="width" id="8GY-NC-GtC"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -582,7 +612,7 @@
         <!--Favorites Table View Controller-->
         <scene sceneID="xJu-Ul-uCh">
             <objects>
-                <tableViewController id="ceR-sS-ghe" customClass="FavoritesTableViewController" customModule="CityArt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritesTableView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ceR-sS-ghe" customClass="FavoritesTableViewController" customModule="CityArt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bxJ-9c-E4Z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -727,6 +757,8 @@
                     </view>
                     <connections>
                         <outlet property="descriptionTextView" destination="NOS-M9-DRS" id="gc6-xf-S40"/>
+                        <outlet property="distanceLabel" destination="22o-36-863" id="6Y4-Wm-tYQ"/>
+                        <outlet property="muralCountLabel" destination="n5v-iX-UVg" id="44Q-KU-nNH"/>
                         <outlet property="muralListTableView" destination="gwy-5y-UI2" id="Vjp-Ct-jWE"/>
                         <outlet property="titleTextField" destination="bc5-L2-FCr" id="eMb-uL-LT5"/>
                         <outlet property="tourMapView" destination="Yhc-3i-35L" id="sLv-HX-oxq"/>
@@ -796,6 +828,7 @@
     </scenes>
     <resources>
         <image name="heart" catalog="system" width="64" height="56"/>
+        <image name="heart.fill" catalog="system" width="64" height="56"/>
         <image name="map" catalog="system" width="64" height="58"/>
         <image name="paperplane" catalog="system" width="64" height="60"/>
     </resources>

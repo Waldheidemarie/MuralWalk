@@ -13,6 +13,9 @@ class FavoritesController {
     
     static let shared = FavoritesController()
     
-    var favorites: [Mural] = []
-
+    var favorites: [StreetArt] = []
+    
+    func delete(){
+        
+    }
 }

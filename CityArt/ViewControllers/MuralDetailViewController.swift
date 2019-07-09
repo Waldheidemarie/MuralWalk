@@ -19,7 +19,7 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     
     
-    var mural: Mural?{
+    var streetArt: StreetArt?{
         didSet{
             loadViewIfNeeded()
             updateViews()
@@ -34,11 +34,11 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func updateViews(){
-        titleLabel.text = mural?.title
-        artistLabel.text = mural?.artist
-        yearInstalledLabel.text = mural?.yearInstalled
-        streetLabel.text = mural?.streetAddress
-        artworkDescriptionLabel.text = mural?.artworkDescription
+        titleLabel.text = streetArt?.title
+        artistLabel.text = streetArt?.artist
+        yearInstalledLabel.text = streetArt?.yearInstalled
+        streetLabel.text = streetArt?.streetAddress
+        artworkDescriptionLabel.text = streetArt?.artworkDescription
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,11 +56,14 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func addToFavoritesPressed(_ sender: UIButton) {
-        guard let mural = mural else {return}
+        guard let mural = streetArt else {return}
         FavoritesController.shared.favorites.append(mural)
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func commentsButtonPressed(_ sender: UIButton) {
+        // If we need anything done in here we can take care of that
+    }
     
     
     @IBAction func addToToursButtonPressed(_ sender: UIButton) {
@@ -74,7 +77,8 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         let addAction = UIAlertAction(title: "Add", style: .default) { (add) in
-            guard let mural = self.mural,
+            guard let mural = self.streetArt
+                ,
                 var tour = self.tour else {return}
             TourController.shared.addToTour(tour: &tour, mural: mural)
         }
@@ -92,13 +96,21 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCommentsView" {
+                let destinationVC = segue.destination as? MuralCommentsTableViewController
+                // Here we shall transfer the streetArt Object into a Mural Object for CloudKitification
+                //We will have this mural instantiated in memory and if the user posts a comment it will push to iCloud
+            guard let art = streetArt else {return}
+                let newMural = Mural(muralID: art.muralID, artist: art.artist, latitude: art.latitude, longitude: art.longitude, title: art.title, fundingSource: art.fundingSource, yearInstalled: art.yearInstalled, yearRestored: art.yearRestored, streetAddress: art.streetAddress, locationDescription: art.locationDescription, artworkDescription: art.artworkDescription, comments: [])
+                destinationVC?.mural = newMural
+        }
         
     }
-   */
+   
  
 }

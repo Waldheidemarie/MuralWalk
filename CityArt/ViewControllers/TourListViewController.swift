@@ -29,8 +29,8 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "tourCell", for: indexPath) as? TourTableViewCell else {return UITableViewCell()}
         cell.tourNameLabel.text = TourController.shared.tours[indexPath.row].title
-        cell.distanceLabel.text = "Distance: 4.2mi"
-        let murals = TourController.shared.tours[indexPath.row].murals 
+        cell.distanceLabel.text = "Distance: \(TourController.shared.tours[indexPath.row].length) miles"
+        let murals = TourController.shared.tours[indexPath.row].streetArtwork
         cell.stopsLabel.text = "Stops: \(murals.count)"
         return cell
     }

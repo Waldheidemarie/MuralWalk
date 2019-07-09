@@ -18,17 +18,17 @@ class MuralListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellStackView: UIStackView!
     
-    var mural: Mural?{
+var streetArt: StreetArt?{
         didSet{
             updateViews()
         }
     }
     
     func updateViews(){
-        guard let mural = mural else {return}
-        titleLabel.text = mural.title
-        artistLabel.text = mural.artist
-        yearLabel.text = mural.yearInstalled
+        guard let streetArt = streetArt else {return}
+        titleLabel.text = streetArt.title
+        artistLabel.text = streetArt.artist
+        yearLabel.text = streetArt.yearInstalled
         configureStackView()
         
     }

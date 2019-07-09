@@ -10,12 +10,79 @@ import Foundation
 
 class NetworkClient {
     
+    
+    let keyID = "8uj3wugj1jv0rhejrlfm3pumw"
+    let secret = "2tdyp6wq94snutllbp0uc65hrdg9imcxsv2znrqs51y0wgtyyi"
     static let shared = NetworkClient()
     let baseURL = URL(string: "https://data.cityofchicago.org/resource/we8h-apcf.json")
     
-    var murals: [Mural] = []
+    var streetArt: [StreetArt] = []
     
-    func fetchMurals(completion: @escaping ([Mural]) -> Void){
+    func queryMuralsByText(searchText: String, completion: @escaping ([StreetArt]) -> Void){
+        guard let url = baseURL else {return}
+        
+        let query = URLQueryItem(name: "$q", value: searchText)
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [query]
+        guard let finalUrl = urlComponents?.url else {return}
+        
+        var urlRequest = URLRequest(url: finalUrl)
+        urlRequest.httpMethod = "GET"
+        urlRequest.httpBody = nil
+        
+        URLSession.shared.dataTask(with: finalUrl) { (data, _, error) in
+            
+            if let error = error {
+                print(" \(error.localizedDescription) \(error) in function \(#function)")
+                completion([])
+                return
+            }
+            guard let data = data else {return}
+            do{
+                let streetArt = try JSONDecoder().decode([StreetArt].self, from: data)
+                completion(streetArt)
+                
+                
+            }catch{
+                print("could not load from dictionary \(error.localizedDescription)")
+                completion([])
+            }
+            }.resume()
+    }
+    
+    func selectMuralByID(registrationID: String, completion: @escaping (StreetArt?) -> Void){
+        guard let url = baseURL else {return}
+        
+        let query = URLQueryItem(name: "mural_registration_id", value: registrationID)
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [query]
+        guard let finalUrl = urlComponents?.url else {return}
+        
+        var urlRequest = URLRequest(url: finalUrl)
+        urlRequest.httpMethod = "GET"
+        urlRequest.httpBody = nil
+        
+        URLSession.shared.dataTask(with: finalUrl) { (data, _, error) in
+            
+            if let error = error {
+                print(" \(error.localizedDescription) \(error) in function \(#function)")
+                completion(nil)
+                return
+            }
+            guard let data = data else {return}
+            do{
+                let mural = try JSONDecoder().decode(StreetArt.self, from: data)
+                completion(mural)
+                
+                
+            }catch{
+                print("could not load from dictionary \(error.localizedDescription)")
+                completion(nil)
+            }
+            }.resume()
+    }
+    
+    func fetchMurals(completion: @escaping ([StreetArt]) -> Void){
         guard let url = baseURL else {return}
         var request = URLRequest(url: url)
         
@@ -30,7 +97,7 @@ class NetworkClient {
             }
             guard let data = data else {return}
             do{
-                let murals = try JSONDecoder().decode([Mural].self, from: data)
+                let murals = try JSONDecoder().decode([StreetArt].self, from: data)
                 completion(murals)
             }catch{
                 print(error)
