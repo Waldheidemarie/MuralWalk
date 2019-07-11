@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 import CloudKit
 
-
+//MARK: - StreetArt Object
 
 class StreetArt: NSObject, Codable, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
@@ -50,88 +50,61 @@ class StreetArt: NSObject, Codable, MKAnnotation {
     }
 }
 
+//MARK: - Mural Object
 class Mural {
-    var coordinate: CLLocationCoordinate2D {
-        guard let lat = self.latitude,
-              let long = self.longitude else {return CLLocationCoordinate2D()}
-        return CLLocationCoordinate2D(latitude: lat.degreeValue, longitude: long.degreeValue)
-    }
     let muralID: String
-    let artist: String?
-    let latitude: String?
-    let longitude: String?
-    let title: String?
-    var subtitle: String? {
-        return self.artist
-    }
-    let fundingSource: String?
-    let yearInstalled: String?
-    let yearRestored: String?
-    let streetAddress: String?
-    let locationDescription: String?
-    let artworkDescription: String?
-    var comments: [Comment]
+    let recordID: CKRecord.ID
+    var hasComment: Bool
 
-    
-
-    
-    
-    init(muralID: String, artist: String?, latitude: String?, longitude: String?, title: String?, fundingSource: String?, yearInstalled: String?, yearRestored: String?, streetAddress: String?, locationDescription: String?, artworkDescription: String?, comments: [Comment] = []){
+    init(muralID: String){
         self.muralID = muralID
-        self.artist = artist
-        self.latitude = latitude
-        self.longitude = longitude
-        self.title = title
-        self.fundingSource = fundingSource
-        self.yearInstalled = yearInstalled
-        self.yearRestored = yearRestored
-        self.streetAddress = streetAddress
-        self.locationDescription = locationDescription
-        self.artworkDescription = artworkDescription
-        self.comments = comments
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
+        self.hasComment = false
 
+    }
+    //Failable Init?
+    init?(cloudkitRecord: CKRecord) {
+        guard let muralID = cloudkitRecord[MuralConstants.muralIDKey] as? String,
+              let hasComment = cloudkitRecord[MuralConstants.hasCommentKey] as? Bool
+            else { return nil }
+        self.muralID = muralID
+        self.recordID = cloudkitRecord.recordID
+        self.hasComment = hasComment
         
     }
-    
-    
-    
-    init?(cloudKitRecord: CKRecord){
-        guard let muralID = cloudKitRecord[MuralConstants.muralIDKey] as? String,
-              let artist = cloudKitRecord[MuralConstants.artistKey] as? String?,
-              let latitude = cloudKitRecord[MuralConstants.latitudeKey] as? String?,
-              let longitude = cloudKitRecord[MuralConstants.longitudeKey] as? String?,
-              let title = cloudKitRecord[MuralConstants.titleKey] as? String?,
-              let fundingSource = cloudKitRecord[MuralConstants.fundingSourceKey] as? String?,
-              let yearInstalled = cloudKitRecord[MuralConstants.yearInstalledKey] as? String?,
-              let yearRestored = cloudKitRecord[MuralConstants.yearRestoredKey] as? String?,
-              let streetAddress = cloudKitRecord[MuralConstants.streetAddressKey] as? String?,
-              let locationDescription = cloudKitRecord[MuralConstants.locationDescriptionKey] as? String?,
-              let artworkDescription = cloudKitRecord[MuralConstants.artworkDescriptionKey] as? String?,
-              let comments = cloudKitRecord[MuralConstants.commentsKey] as? [Comment] else {return nil}
+}
+
+//MARK: - Mural Extension
+//extension Mural {
+//    convenience init?(cloudKitRecord: CKRecord){
+//        guard let muralID = cloudKitRecord[MuralConstants.muralIDKey] as? String
+//            else {return nil}
+//    
+//    self.init(cloudKitRecord: cloudKitRecord)
+//    }
+//}
+
+//MARK: - CKRecord Extension
+extension CKRecord {
+    convenience init(mural: Mural){
+        self.init(recordType: MuralConstants.typeKey, recordID: mural.recordID)
+        self.setValue(mural.muralID, forKey: MuralConstants.muralIDKey)
+        self.setValue(mural.hasComment, forKey: MuralConstants.hasCommentKey)
         
-        self.muralID = muralID
-        self.artist = artist
-        self.latitude = latitude
-        self.longitude = longitude
-        self.title = title
-        self.fundingSource = fundingSource
-        self.yearInstalled = yearInstalled
-        self.yearRestored = yearRestored
-        self.streetAddress = streetAddress
-        self.locationDescription = locationDescription
-        self.artworkDescription = artworkDescription
-        self.comments = comments
-    }
- 
-    
-    var cloudKitRecord: CKRecord {
-        let record = CKRecord(recordType: MuralConstants.typeKey)
-        record.setValue(muralID, forKey: MuralConstants.muralIDKey)
-        return record
     }
 }
 
 
+extension CKRecord {
+    convenience init(comment: Comment){
+        self.init(recordType: CommentConstants.typeKey, recordID: comment.recordID)
+        self.setValue(comment.muralReference, forKey: CommentConstants.muralReferenceKey)
+        self.setValue(comment.text, forKey: CommentConstants.textKey)
+        self.setValue(comment.timeStamp, forKey: CommentConstants.timeStampKey)
+    }
+}
+
+//MARK: - Tour Object
 class Tour: Equatable{
 
     var title : String
@@ -154,16 +127,45 @@ class Tour: Equatable{
     }
 }
 
+//MARK: - Comment Object
 class Comment{
     var text: String
     var timeStamp: Date = Date()
+    var muralReference: CKRecord.Reference
+    var recordID: CKRecord.ID
     
-    init(text: String, timestamp: Date = Date()){
+    init(text: String, timestamp: Date = Date(), muralReference: CKRecord.Reference){
         self.text = text
         self.timeStamp = timestamp
+        self.muralReference = muralReference
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
 }
 
+
+
+extension Comment {
+    convenience init?(cloudkitRecord: CKRecord){
+        guard let text = cloudkitRecord[CommentConstants.textKey] as? String,
+            let timestamp = cloudkitRecord[CommentConstants.timeStampKey] as? Date,
+            let muralReference = cloudkitRecord[CommentConstants.muralReferenceKey] as? CKRecord.Reference
+            //let recordID = cloudkitRecord[CommentConstants.recordKey] as? CKRecord.ID
+            else {return nil}
+        
+        self.init(text: text, timestamp: timestamp, muralReference: muralReference)
+    }
+}
+
+
+
+//MARK: - Constants
+struct CommentConstants {
+    static let typeKey = "Comment"
+    static let textKey = "Text"
+    static let timeStampKey = "Timestamp"
+    static let muralReferenceKey = "MuralReference"
+    static let recordKey = "RecordID"
+}
 
 struct MuralConstants {
     static let typeKey = "Mural"
@@ -179,5 +181,5 @@ struct MuralConstants {
     static let locationDescriptionKey = "LocationDescription"
     static let artworkDescriptionKey = "ArtworkDescription"
     static let commentsKey = "Comments"
-    static let visitsKey = "Visits"
+    static let hasCommentKey = "HasComment"
 }

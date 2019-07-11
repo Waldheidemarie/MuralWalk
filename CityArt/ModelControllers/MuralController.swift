@@ -12,13 +12,13 @@ import CloudKit
 class MuralController {
     
    static let shared = MuralController()
-    
-    let ckManager = CloudKitManager()
+    let publicDB = CKContainer.default().publicCloudDatabase
+  
     var savedMurals: [Mural] = []
     
     func figureOutIfMuralExists(mural: Mural, completion: @escaping (Int) -> Void) -> Bool {
         var muralBool = false
-        var counter = -1
+        var counter = 0
         for muralLoop in self.savedMurals {
             counter += 1
             if muralLoop.muralID == mural.muralID {
@@ -34,21 +34,110 @@ class MuralController {
             return true
         }
         else {
+            completion(counter)
             return false
         }
     }
     
-    func saveToPersistentStore() {
+    func saveMural(muralID: String, hasComment: Bool, completion: @escaping (Mural?) -> Void){
+    
+        let muralToSave = Mural(muralID: muralID)
+        muralToSave.hasComment = hasComment
+        let record = CKRecord(mural: muralToSave)
         
+        publicDB.save(record) { (_, error) in
+            if let error = error {
+                print(error)
+                print("/n------/n")
+                print(error.localizedDescription)
+                completion(nil)
+                return
+            }
+            self.savedMurals.append(muralToSave)
+            completion(muralToSave)
+        }
     }
     
-    func loadFromPersistentStore(){
+    func saveComment(comment: Comment, completion: @escaping(Bool) -> Void){
         
+        let record = CKRecord(comment: comment)
+        publicDB.save(record) { (_, error) in
+            if let error = error {
+                print(error)
+                print("/n------/n")
+                print(error.localizedDescription)
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
     
-    func addCommentTo(mural: Mural, text: String){
-        let newComment = Comment(text: text)
-        mural.comments.append(newComment)
+    func fetchMurals(completion: @escaping (Bool) -> Void ) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: MuralConstants.typeKey, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: MuralConstants.muralIDKey, ascending: true)]
+        publicDB.perform(query, inZoneWith: nil) { (records, error) in
+            if let error = error {
+                print(error)
+                print("/n------/n")
+                print(error.localizedDescription)
+                completion(false)
+                return
+            }
+            
+            guard let records = records else {completion(false) ; return}
+            let murals = records.compactMap {(Mural(cloudkitRecord: $0))}
+            self.savedMurals = murals
+            completion(true)
+        }
+    }
+    
+    func fetchMuralByID(muralID: String, completion: @escaping (Mural?) -> Void){
+        //This basically needs to take the StreetArt Object's MuralID and check to see if there is a cloudkit mural that matches that ID
+        let predicate = NSPredicate(format: "MuralRegistrationID == %@", muralID)
+        let query = CKQuery(recordType: MuralConstants.typeKey, predicate: predicate)
+        publicDB.perform(query, inZoneWith: nil) { (records, error) in
+            if let error = error {
+                print(error)
+                print("/n------/n")
+                print(error.localizedDescription)
+                completion(nil)
+                return
+            }
+            guard let records = records else {completion(nil) ; return}
+            if records.count > 0 {
+                let muralRecord = records.first!
+                let mural = Mural(cloudkitRecord: muralRecord)
+                completion(mural)
+            }else {
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchComments(mural: Mural, completion: @escaping ([Comment]) -> Void) {
         
+        //Might be on the right track
+        let predicate = NSPredicate(format: "MuralReference == %@", mural.recordID )
+        let query = CKQuery(recordType: CommentConstants.muralReferenceKey, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: CommentConstants.timeStampKey, ascending: true)]
+        publicDB.perform(query, inZoneWith: nil) { (comments, error) in
+            if let error = error {
+                print(error)
+                print("/n------/n")
+                print(error.localizedDescription)
+                completion([])
+                return
+            }
+            guard let comments = comments else {completion([]) ; return}
+            var commentArray: [Comment] = []
+            for comment in comments {
+                let newComment = Comment(cloudkitRecord: comment)
+                guard let newFreakingComment = newComment else {return}
+                commentArray.append(newFreakingComment)
+            }
+            completion(commentArray)
+        }
     }
 }

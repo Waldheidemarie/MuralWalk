@@ -30,6 +30,9 @@ class MainScreenViewController: UIViewController {
     //MARK: - ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        MuralController.shared.fetchMurals { (success) in
+            print("Successfully fetched Murals from CloudKit")
+        }
         muralMapView.delegate = self
         muralSearchBar.delegate = self
         

@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+import CloudKit
 class MuralCommentsTableViewController: UITableViewController {
     
+    
+    var comments: [Comment] = []
  
     //MARK: - IB Outlets
     
@@ -17,20 +19,26 @@ class MuralCommentsTableViewController: UITableViewController {
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var artistLabel: UILabel!
     
-    var mural: Mural? {
+    var streetArt: StreetArt?{
         didSet{
             loadViewIfNeeded()
             updateUI()
         }
     }
     
+    var mural: Mural? 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let mural = mural else {return}
+        MuralController.shared.fetchComments(mural: mural) { (comments) in
+            self.comments = comments
+        }
     }
     func updateUI(){
-        titleLabel.text = mural?.title
-        descriptionLabel.text = mural?.artworkDescription
-        artistLabel.text = mural?.artist
+        titleLabel.text = streetArt?.title
+        descriptionLabel.text = streetArt?.artworkDescription
+        artistLabel.text = streetArt?.artist
         
     }
     // MARK: - Table view data source
@@ -39,7 +47,8 @@ class MuralCommentsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        guard let comments = mural?.comments else {return 0}
+//        guard let comments = mural?.comments else {return 0}
+        
         return comments.count
     }
 
@@ -47,9 +56,15 @@ class MuralCommentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as? MuralCommentTableViewCell else {return UITableViewCell()}
         
-            cell.userLabel.text = "HardCoded User"
-            cell.timestampLabel.text = mural?.comments[indexPath.row].timeStamp.formatDate()
-            cell.contentLabel.text = mural?.comments[indexPath.row].text
+        let comment = comments[indexPath.row]
+        
+        cell.userLabel.text = "HardCoded User"
+        cell.timestampLabel.text = "\(comment.timeStamp.formatDate())"
+        cell.contentLabel.text = comment.text
+        
+//            cell.userLabel.text = "HardCoded User"
+//            cell.timestampLabel.text = mural?.comments[indexPath.row].timeStamp.formatDate()
+//            cell.contentLabel.text = mural?.comments[indexPath.row].text
         
 
         return cell
@@ -61,33 +76,127 @@ class MuralCommentsTableViewController: UITableViewController {
         newCommentController.addTextField { (textField) in
             textField.placeholder = "Type your comment..."
         }
-        var returned = 0
+        
+        
+        
         let addAction = UIAlertAction(title: "Add", style: .default) { (add) in
+            
+            //We are now inside the completion block that runs when a new comment is posted.
+            
             guard let textFields = newCommentController.textFields else {return}
             guard let newCommentContent = textFields[0].text else {return}
-            let newComment = Comment(text: newCommentContent)
-            guard let mural = self.mural else {return}
-            if MuralController.shared.figureOutIfMuralExists(mural: mural, completion: {(index) in
-                 // How do I get this function to complete with an int IF the return value is true?
-                returned = index
-            }) {
-                // If possible Get the index of the Mural in the Mural SoT that matches the registration ID currently in this View controller find that particular mural and append the new comment to it.
-                let muralToAppend = MuralController.shared.savedMurals[returned]
-                //This has propoer scope to be able to pull that mural and then append newComment to that mural
-                muralToAppend.comments.append(newComment)
-                MuralController.shared.savedMurals.remove(at: returned)
-                MuralController.shared.savedMurals.insert(muralToAppend, at: returned)
-                self.tableView.reloadData()
-                //HAHAHAHAHAAAAAAAAA Maybe that hack is kinda close? LOL probably not but I'm impressed you came up with this.
-            }else {
-                self.mural?.comments.append(newComment)
-                MuralController.shared.savedMurals.append(mural)
+            guard let mural = self.mural else {
+                guard let art = self.streetArt else {return}
+                let newMural = Mural(muralID: art.muralID)
                 
+                MuralController.shared.saveMural(muralID: newMural.muralID, hasComment: true) { (mural) in
+                    //not sure why we need to complete with this
+                    guard let mural = mural else {return}
+                    let muralReference = CKRecord.Reference(recordID: mural.recordID, action: .deleteSelf)
+                    let newComment = Comment(text: newCommentContent, muralReference: muralReference)
+                    MuralController.shared.saveComment(comment: newComment) { (success) in
+                        print("We Finally Did it \(muralReference)")
+                    }
+                }
+                return
             }
             
-            self.tableView.reloadData()
+           
+            // IF a mural has a comment then it already exists in iCloud. If this boolean is FALSE that means that we are creating a new CKRecord for this mural
             
+            
+            if mural.hasComment {
+                // Append comment to Mural that already exists by finding it's recordID and setting this comment's muralReference number to that value
+                let muralReference = CKRecord.Reference(recordID: mural.recordID, action: .deleteSelf)
+                let newComment = Comment(text: newCommentContent, muralReference: muralReference)
+                
+                //All we are doing in this saveComment function is saving a new record with the Comment object. We are relying on the comment to keep track of it's own parent
+                MuralController.shared.saveComment(comment: newComment) { (success) in
+                    print(muralReference)
+                }
+            }
+            else{
+                // WE are creating a brand new Mural because we found this boolean to be false
+                
+                
+                // We need to switch this local mural's has comment value to true and then call the function that saves this mural to iCloud.
+                guard let mural = self.mural else {return}
+                
+                
+                MuralController.shared.saveMural(muralID: mural.muralID, hasComment: true) { (mural) in
+                    //not sure why we need to complete with this
+                    guard let mural = mural else {return}
+                    let muralReference = CKRecord.Reference(recordID: mural.recordID, action: .deleteSelf)
+                    let newComment = Comment(text: newCommentContent, muralReference: muralReference)
+                    MuralController.shared.saveComment(comment: newComment) { (success) in
+                        print("We Finally Did it \(muralReference)")
+                    }
+                }
+            }
+            
+            
+            
+            
+            
+            /*
+ 
+            
+            if MuralController.shared.figureOutIfMuralExists(mural: mural, completion: {(index) in
+                 // How do I get this function to complete with an int IF the return value is true?
+                
+                
+                
+                // OK well I figured that out BUT the result was STUPID AS SHIT
+                
+       
+                
+                // WHY ARE YOU DOING THIS? JUST FIND A WAY TO SAVE THE MURAL TO THE CLOUD AND FETCH THEM ONCE THEY ARE UP THERE!!!!!
+                
+                
+                
+                
+                
+                // YOU'RE CREATING TERRIBLE, UNREADABLE CODE THAT DOESN'T EVEN WORK DUE TO YOUR LACK OF EXPERIENCE!!!!!!
+                
+                
+                
+                // FIX THAT!
+                
+                
+                
+                
+                
+                
+                
+            }) {
+                // If possible Get the index of the Mural in the Mural SoT that matches the registration ID currently in this View controller find that particular mural and append the new comment to it.
+                
+                
+                
+                //let muralToAppend = MuralController.shared.savedMurals[returned]
+                //This has propoer scope to be able to pull that mural and then append newComment to that mural
+                self.comments.append(newComment)
+               // MuralController.shared.savedMurals.remove(at: returned)
+              //  MuralController.shared.savedMurals.insert(muralToAppend, at: returned)
+                self.tableView.reloadData()
+            }else {
+                self.comments.append(newComment)
+                MuralController.shared.saveMural(muralID: mural.muralID) { (mural) in
+                    guard let mural = mural else {return}
+                    let muralReference = CKRecord.Reference(recordID: mural.recordID, action: .deleteSelf)
+                    print("Successfully Saved Mural ID with recordID: \(mural.recordID) ::: \(muralReference)")
+                    newComment.muralReference = muralReference
+                    //Function to save comment record
+                    MuralController.shared.saveComment(comment: newComment) { (success) in
+                        print("We saved a comment")
+                    }
+                }
+            }
+                   */
+            self.tableView.reloadData()
         }
+        
+            
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in
             newCommentController.dismiss(animated: true, completion: nil)
         }
