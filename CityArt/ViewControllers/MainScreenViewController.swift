@@ -147,7 +147,7 @@ extension String {
     }
 }
 
-//FIXME: - Extension for Search Bar Delegate has been disable
+
 
  extension MainScreenViewController: UISearchBarDelegate {
  

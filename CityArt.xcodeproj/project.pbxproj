@@ -29,6 +29,9 @@
 		AF97562922D3DE1D0062EA6A /* MuralCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF97562822D3DE1D0062EA6A /* MuralCommentTableViewCell.swift */; };
 		AF97562C22D419900062EA6A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF97562B22D419900062EA6A /* DateExtension.swift */; };
 		AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */; };
+		AFFFF72722D90E06004C5EED /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFF72622D90E06004C5EED /* NavigationViewController.swift */; };
+		AFFFF72922D9175B004C5EED /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFF72822D9175B004C5EED /* UserController.swift */; };
+		AFFFF72B22D9178C004C5EED /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFF72A22D9178C004C5EED /* CloudKitController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,9 @@
 		AF97562822D3DE1D0062EA6A /* MuralCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralCommentTableViewCell.swift; sourceTree = "<group>"; };
 		AF97562B22D419900062EA6A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
+		AFFFF72622D90E06004C5EED /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		AFFFF72822D9175B004C5EED /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		AFFFF72A22D9178C004C5EED /* CloudKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 				AF1CD34922C6A6DD00087D4C /* FavoritesTableViewController.swift */,
 				AFB9BCCF22CA9932005B34E2 /* TourDetailViewController.swift */,
 				AF97562622D3CF560062EA6A /* MuralCommentsTableViewController.swift */,
+				AFFFF72622D90E06004C5EED /* NavigationViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -121,6 +128,8 @@
 				AF8E0BA022BBD529003D1651 /* NetworkClient.swift */,
 				AF1CD34322C6716A00087D4C /* TourController.swift */,
 				AF653C1A22CD433700CBA6DC /* MuralController.swift */,
+				AFFFF72822D9175B004C5EED /* UserController.swift */,
+				AFFFF72A22D9178C004C5EED /* CloudKitController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -296,7 +305,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFFFF72922D9175B004C5EED /* UserController.swift in Sources */,
 				AF8E0B7D22BADDAD003D1651 /* AppDelegate.swift in Sources */,
+				AFFFF72B22D9178C004C5EED /* CloudKitController.swift in Sources */,
 				AF1CD34622C6868000087D4C /* TourListViewController.swift in Sources */,
 				AF97562922D3DE1D0062EA6A /* MuralCommentTableViewCell.swift in Sources */,
 				AF9228DD22BC2B3600DEFD93 /* MuralDetailViewController.swift in Sources */,
@@ -308,6 +319,7 @@
 				AF1CD34422C6716A00087D4C /* TourController.swift in Sources */,
 				AF8E0BA722BC03B3003D1651 /* MuralListTableViewController.swift in Sources */,
 				AFB9BCD022CA9932005B34E2 /* TourDetailViewController.swift in Sources */,
+				AFFFF72722D90E06004C5EED /* NavigationViewController.swift in Sources */,
 				AF8E0BA122BBD529003D1651 /* NetworkClient.swift in Sources */,
 				AF97562C22D419900062EA6A /* DateExtension.swift in Sources */,
 				AF1CD34822C6879C00087D4C /* TourTableViewCell.swift in Sources */,

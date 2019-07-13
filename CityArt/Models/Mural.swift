@@ -11,6 +11,52 @@ import CoreLocation
 import MapKit
 import CloudKit
 
+//MARK: - User Object
+
+class User {
+    var username: String
+    var email: String
+    
+    let recordID: CKRecord.ID
+    let appleUserReference: CKRecord.Reference
+    
+    init(username: String, email: String, recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString) , appleUserReference: CKRecord.Reference){
+        self.username = username
+        self.email = email
+        self.recordID = recordID
+        self.appleUserReference = appleUserReference
+    }
+}
+
+extension User {
+    convenience init?(record: CKRecord) {
+        guard let username = record[UserConstants.usernameKey] as? String,
+            let email = record[UserConstants.emailKey] as? String,
+            let appleUserReference = record[UserConstants.appleUserReferenceKey] as? CKRecord.Reference else {return nil}
+        self.init(username: username, email: email, recordID: record.recordID, appleUserReference: appleUserReference)
+    }
+}
+
+
+extension CKRecord {
+    convenience init(user: User){
+        self.init(recordType: UserConstants.typeKey, recordID: user.recordID)
+        self.setValue(user.username, forKey: UserConstants.usernameKey)
+        self.setValue(user.email, forKey: UserConstants.emailKey)
+        self.setValue(user.appleUserReference, forKey: UserConstants.appleUserReferenceKey)
+    }
+}
+
+
+struct UserConstants {
+    static let typeKey = "User"
+    fileprivate static let usernameKey = "Username"
+    fileprivate static let emailKey = "Email"
+    fileprivate static let appleUserReferenceKey = "AppleUserReferenceKey"
+}
+
+
+
 //MARK: - StreetArt Object
 
 class StreetArt: NSObject, Codable, MKAnnotation {
@@ -85,6 +131,17 @@ class Mural {
 //}
 
 //MARK: - CKRecord Extension
+
+
+extension CKRecord {
+    
+}
+
+
+
+
+
+
 extension CKRecord {
     convenience init(mural: Mural){
         self.init(recordType: MuralConstants.typeKey, recordID: mural.recordID)
@@ -108,6 +165,7 @@ extension CKRecord {
 class Tour: Equatable{
 
     var title : String
+    let recordID: CKRecord.ID
     var description: String
     let identifier: String
     var length: Double = 0.0
@@ -116,6 +174,7 @@ class Tour: Equatable{
     
     init(title: String, description: String, identifier: String, length: Double, streetArtwork: [StreetArt] = [], comments: [Comment] = []){
         self.title = title
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
         self.description = description
         self.identifier = identifier
         self.length = length
@@ -169,6 +228,7 @@ struct CommentConstants {
 
 struct MuralConstants {
     static let typeKey = "Mural"
+    static let tourReferenceKey = "TourReference"
     static let muralIDKey = "MuralRegistrationID"
     static let artistKey = "Artist"
     static let latitudeKey = "Latitude"
@@ -182,4 +242,9 @@ struct MuralConstants {
     static let artworkDescriptionKey = "ArtworkDescription"
     static let commentsKey = "Comments"
     static let hasCommentKey = "HasComment"
+}
+
+struct TourConstants {
+    static let typeKey = "Tour"
+    
 }

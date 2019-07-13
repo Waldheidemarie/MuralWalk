@@ -39,6 +39,7 @@ class MuralController {
         }
     }
     
+    
     func saveMural(muralID: String, hasComment: Bool, completion: @escaping (Mural?) -> Void){
     
         let muralToSave = Mural(muralID: muralID)
@@ -120,7 +121,7 @@ class MuralController {
         
         //Might be on the right track
         let predicate = NSPredicate(format: "MuralReference == %@", mural.recordID )
-        let query = CKQuery(recordType: CommentConstants.muralReferenceKey, predicate: predicate)
+        let query = CKQuery(recordType: CommentConstants.typeKey, predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: CommentConstants.timeStampKey, ascending: true)]
         publicDB.perform(query, inZoneWith: nil) { (comments, error) in
             if let error = error {

@@ -121,7 +121,9 @@ class MuralDetailViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == "toCommentsView" {
             let destinationVC = segue.destination as? MuralCommentsTableViewController
             destinationVC?.streetArt = self.streetArt
-            destinationVC?.mural = football
+            guard let newMuralID = self.streetArt?.muralID else {return}
+            let newMural = Mural(muralID: newMuralID)
+            destinationVC?.mural = newMural
             
             //Check icloud
             //fetch by mural ID
