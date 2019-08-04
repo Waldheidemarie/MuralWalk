@@ -12,6 +12,7 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet weak var tourTableView: UITableView!
     
+    var currentUser: User?
     override func viewDidLoad() {
         super.viewDidLoad()
         tourTableView.delegate = self
@@ -44,7 +45,8 @@ class TourListViewController: UIViewController, UITableViewDelegate, UITableView
         let addAction = UIAlertAction(title: "Add", style: .default) { (add) in
             guard let textFields = newTourController.textFields else {return}
             guard let tourName = textFields[0].text else {return}
-            TourController.shared.newTour(title: tourName)
+            guard let user = self.currentUser else {return}
+            TourController.shared.newTour(user: user, title: tourName)
             self.tourTableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in

@@ -16,30 +16,6 @@ class MuralController {
   
     var savedMurals: [Mural] = []
     
-    func figureOutIfMuralExists(mural: Mural, completion: @escaping (Int) -> Void) -> Bool {
-        var muralBool = false
-        var counter = 0
-        for muralLoop in self.savedMurals {
-            counter += 1
-            if muralLoop.muralID == mural.muralID {
-                muralBool = true
-                break
-            }
-            else {
-                muralBool = false
-            }
-        }
-        if muralBool {
-            completion(counter)
-            return true
-        }
-        else {
-            completion(counter)
-            return false
-        }
-    }
-    
-    
     func saveMural(muralID: String, hasComment: Bool, completion: @escaping (Mural?) -> Void){
     
         let muralToSave = Mural(muralID: muralID)

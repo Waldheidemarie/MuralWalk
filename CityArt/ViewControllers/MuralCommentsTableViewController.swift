@@ -31,8 +31,6 @@ class MuralCommentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let newMuralID = self.streetArt?.muralID else {return}
-        let newMural = Mural(muralID: newMuralID)
-        
         MuralController.shared.fetchMuralByID(muralID: newMuralID) { (mural) in
             if let mural = mural {
                 MuralController.shared.fetchComments(mural: mural) { (comments) in
@@ -87,29 +85,20 @@ class MuralCommentsTableViewController: UITableViewController {
         return cell
     }
     
-    
+    //MARK: - Posting to CloudKit
     @IBAction func postCommentButtonPressed(_ sender: UIButton) {
         let newCommentController = UIAlertController(title: "Post New Comment", message: "What would you like to say about his mural?", preferredStyle: .alert)
         newCommentController.addTextField { (textField) in
             textField.placeholder = "Type your comment..."
         }
-        
-        
-        
+
         let addAction = UIAlertAction(title: "Add", style: .default) { (add) in
             
             //We are now inside the completion block that runs when a new comment is posted.
             
             guard let textFields = newCommentController.textFields else {return}
             guard let newCommentContent = textFields[0].text else {return}
-            
-            
-            //Need better logic to go check iCloud and avoid saving another mural
-            
-            //Here in this completion we need to check to see if this hasComment is true or not
-            
-            
-            
+        
             guard let art = self.streetArt else {return}
             
             //perform fetch on mural id from the street art object

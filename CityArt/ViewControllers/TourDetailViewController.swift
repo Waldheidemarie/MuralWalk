@@ -24,6 +24,7 @@ class TourDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var locations: [CLLocation] = []
   //  var coordinates: [CLLocationCoordinate2D] = []
+    
     var tour: Tour? {
         didSet{
             loadViewIfNeeded()
@@ -31,6 +32,7 @@ class TourDetailViewController: UIViewController, UITableViewDelegate, UITableVi
            
         }
     }
+    
     var selectedAnnotation: MKAnnotation?
  
     override func viewDidLoad() {

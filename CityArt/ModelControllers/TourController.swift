@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class TourController {
     
@@ -15,8 +16,9 @@ class TourController {
     var tours: [Tour] = []
     
     //CRUD Functions
-    func newTour(title: String){
-        let newTour = Tour(title: title, description: "", identifier: UUID().uuidString, length: 0.0, streetArtwork: [], comments: [])
+    func newTour(user: User, title: String){
+        let userReference = CKRecord.Reference(recordID: user.recordID, action: .deleteSelf)
+        let newTour = Tour(title: title, description: "", userReference: userReference,  length: 0.0, streetArtwork: [])
         self.tours.append(newTour)
     }
         func addToTour(tour: inout Tour, mural: StreetArt){
@@ -26,7 +28,9 @@ class TourController {
     func deleteTour(tour: Tour){
         
     }
-    //MARK: Custom Instance Methods
+    //MARK: - Cloudkit Methods
+    
+    
     
    
 }

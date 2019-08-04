@@ -134,13 +134,12 @@ class Mural {
 
 
 extension CKRecord {
-    
+    convenience init(tour: Tour){
+        self.init(recordType: TourConstants.typeKey, recordID: tour.recordID)
+        self.setValue(tour.muralIDs, forKey: TourConstants.muralIDsKey)
+        self.setValue(tour.userReference, forKey: TourConstants.userReferenceKey)
+    }
 }
-
-
-
-
-
 
 extension CKRecord {
     convenience init(mural: Mural){
@@ -166,25 +165,44 @@ class Tour: Equatable{
 
     var title : String
     let recordID: CKRecord.ID
+    var userReference: CKRecord.Reference
+    let muralIDs: [String]
     var description: String
-    let identifier: String
     var length: Double = 0.0
     var streetArtwork: [StreetArt]
-    var comments: [Comment]
     
-    init(title: String, description: String, identifier: String, length: Double, streetArtwork: [StreetArt] = [], comments: [Comment] = []){
+    init(title: String, description: String, userReference: CKRecord.Reference, length: Double, streetArtwork: [StreetArt] = [], muralIDs: [String] = []){
         self.title = title
         self.recordID = CKRecord.ID(recordName: UUID().uuidString)
+        self.userReference = userReference
+        self.muralIDs = muralIDs
         self.description = description
-        self.identifier = identifier
         self.length = length
         self.streetArtwork = streetArtwork
-        self.comments = comments
     }
+    init?(cloudkitRecord: CKRecord) {
+        guard let muralIDs = cloudkitRecord[TourConstants.muralIDsKey] as? [String],
+            let userReference = cloudkitRecord[TourConstants.userReferenceKey] as? CKRecord.Reference
+            else { return nil }
+        self.muralIDs = muralIDs
+        self.userReference = userReference
+
+    }
+    
     static func == (lhs: Tour, rhs: Tour) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.recordID == rhs.recordID
     }
 }
+
+//extension Tour {
+//    convenience init?(cloudkitRecord: CKRecord){
+//        guard let muralIDs = cloudkitRecord[TourConstants.muralIDsKey] as? [String],
+//            let userReference = cloudkitRecord[TourConstants.userReferenceKey] as? CKRecord.Reference
+//            else {return nil}
+//
+//        self.init(muralIDs: muralIDs, userReference: userReference)
+//    }
+//}
 
 //MARK: - Comment Object
 class Comment{
@@ -246,5 +264,11 @@ struct MuralConstants {
 
 struct TourConstants {
     static let typeKey = "Tour"
+    static let titleKey = "Title"
+    static let recordKey = "RecordID"
+    static let userReferenceKey = "UserReference"
+    static let muralIDsKey = "MuralIDs"
+    static let descriptionKey = "Description"
+    static let distanceKey = "Distance"
     
 }

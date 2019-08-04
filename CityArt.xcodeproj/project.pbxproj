@@ -19,7 +19,7 @@
 		AF8E0B8422BADDB3003D1651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8E0B8322BADDB3003D1651 /* Assets.xcassets */; };
 		AF8E0B8722BADDB3003D1651 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF8E0B8522BADDB3003D1651 /* LaunchScreen.storyboard */; };
 		AF8E0B9222BADDB3003D1651 /* CityArtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0B9122BADDB3003D1651 /* CityArtTests.swift */; };
-		AF8E0B9D22BAE172003D1651 /* Mural.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0B9C22BAE172003D1651 /* Mural.swift */; };
+		AF8E0B9D22BAE172003D1651 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0B9C22BAE172003D1651 /* Models.swift */; };
 		AF8E0B9F22BAE18B003D1651 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0B9E22BAE18B003D1651 /* MainScreenViewController.swift */; };
 		AF8E0BA122BBD529003D1651 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA022BBD529003D1651 /* NetworkClient.swift */; };
 		AF8E0BA522BBEDE8003D1651 /* MuralListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */; };
@@ -62,7 +62,7 @@
 		AF8E0B8D22BADDB3003D1651 /* CityArtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityArtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8E0B9122BADDB3003D1651 /* CityArtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityArtTests.swift; sourceTree = "<group>"; };
 		AF8E0B9322BADDB3003D1651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF8E0B9C22BAE172003D1651 /* Mural.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mural.swift; sourceTree = "<group>"; };
+		AF8E0B9C22BAE172003D1651 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AF8E0B9E22BAE18B003D1651 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		AF8E0BA022BBD529003D1651 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		AF8E0BA422BBEDE8003D1651 /* MuralListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuralListTableViewCell.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		AF0B9F2222BEA5B9005C59B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF8E0B9C22BAE172003D1651 /* Mural.swift */,
+				AF8E0B9C22BAE172003D1651 /* Models.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,7 +312,7 @@
 				AF97562922D3DE1D0062EA6A /* MuralCommentTableViewCell.swift in Sources */,
 				AF9228DD22BC2B3600DEFD93 /* MuralDetailViewController.swift in Sources */,
 				AF8E0BA522BBEDE8003D1651 /* MuralListTableViewCell.swift in Sources */,
-				AF8E0B9D22BAE172003D1651 /* Mural.swift in Sources */,
+				AF8E0B9D22BAE172003D1651 /* Models.swift in Sources */,
 				AF653C1B22CD433700CBA6DC /* MuralController.swift in Sources */,
 				AF1CD34A22C6A6DD00087D4C /* FavoritesTableViewController.swift in Sources */,
 				AF8E0B9F22BAE18B003D1651 /* MainScreenViewController.swift in Sources */,
